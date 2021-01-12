@@ -1,2 +1,3 @@
 # jsTasks
-JavaScript tasks 
+JavaScript tasks from SoftUni
+
