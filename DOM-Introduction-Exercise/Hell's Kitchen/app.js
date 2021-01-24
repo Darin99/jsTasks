@@ -1,12 +1,12 @@
 function solve() {
    document.querySelector('#btnSend').addEventListener('click', onClick);
 
-   let input = document.querySelector('#inputs > textarea').textContent;
-   const bestRestaurantP = document.querySelector('#bestRestaurant > p');
-   const workersP = document.querySelector('#workers > p');
+   const input = document.querySelector('#inputs>textarea');
+   const bestRestaurantP = document.querySelector('#bestRestaurant>p');
+   const workersP = document.querySelector('#workers>p');
 
    function onClick() {
-      let arr = JSON.parse(input.value);
+      const arr = JSON.parse(input.value);
 
       let restaurants = {};
 
@@ -16,10 +16,9 @@ function solve() {
          const workersArr = tokens[1].split(', ');
 
          let workers = [];
-         let averageSalary = 0;
 
          for (let worker of workersArr) {
-            let workerTokens = worker.split(' ');
+            const workerTokens = worker.split(' ');
             const salary = Number(workerTokens[1]);
             workers.push({
                name: workerTokens[0],
@@ -27,14 +26,14 @@ function solve() {
             });
          }
 
-         if (restaurants[name] !== undefined) {
+         if (restaurants[name]) {
             workers = workers.concat(restaurants[name].workers);
          }
 
          workers.sort((worker1, worker2) => worker2.salary - worker1.salary);
 
          const bestSalary = workers[0].salary;
-         averageSalary = workers.reduce((sum, worker) => sum + worker.salary, 0) / workers.length;
+         const averageSalary = workers.reduce((sum, worker) => sum + worker.salary, 0) / workers.length;
 
          restaurants[name] = {
             workers,
@@ -44,7 +43,7 @@ function solve() {
       });
 
       let bestRestaurantSalary = 0;
-      let best = {};
+      let best = undefined;
 
       for (const name in restaurants) {
          if (restaurants[name].averageSalary > bestRestaurantSalary) {
@@ -63,9 +62,9 @@ function solve() {
       let workersResult = [];
 
       best.workers.forEach(worker => {
-         workersResult += `Name: ${worker.name} With Salary: ${worker.salary}`
+         workersResult.push(`Name: ${worker.name} With Salary: ${worker.salary}`)
       });
 
-      workersP.textContent = workersResult.join(' ');
+      workersP.textContent = workersResult.join(" ");
    }
 }
